@@ -3,10 +3,9 @@
   "version": "0.0.1",
   "description": "Cog module for WordPress",
   "global": "false",
-  "scripts": [
-    "wp.sh"
-  ],
+  "scripts": [],
   "files": [
+    "wp.sh",
     "lib/requirements.sh",
     "sample.config"
   ]
