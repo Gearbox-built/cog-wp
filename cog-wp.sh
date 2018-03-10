@@ -70,7 +70,7 @@ wp::wp_install() {
 # Downloads, installs, and setups up a fresh WP instance
 #
 wp::wp_setup() {
-  message "Setting up WP..!"
+  message "Setting up WP..."
   # 1. wp::wp_install
   # 2. wp db create
   # 3. wp core install
