@@ -5,6 +5,6 @@
   "global": "false",
   "scripts": [
     "wp.sh",
-    "lib/"
+    "lib/*.sh"
   ]
 }
