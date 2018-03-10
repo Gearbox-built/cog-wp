@@ -1,0 +1,10 @@
+{
+  "name": "cog-wp",
+  "version": "0.0.1",
+  "description": "WordPress cog module",
+  "global": "false",
+  "scripts": [ "wp.sh" ],
+  "dependencies": {
+    "gearbox-built/cog": "master"
+  }
+}
