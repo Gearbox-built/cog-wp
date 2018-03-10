@@ -4,10 +4,9 @@
   "description": "WordPress cog module",
   "global": "false",
   "scripts": [
-    "wp.sh",
-    "lib/*"
+    "wp.sh"
+  ],
+  "files": [
+    "lib"
   ]
-  // "dependencies": {
-  //   "gearbox-built/cog": "master"
-  // }
 }
