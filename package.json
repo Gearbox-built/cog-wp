@@ -4,9 +4,7 @@
   "description": "WordPress cog module",
   "global": "false",
   "scripts": [
-    "wp.sh"
-  ],
-  "files": [
-    "lib"
+    "wp.sh",
+    "lib/"
   ]
 }
