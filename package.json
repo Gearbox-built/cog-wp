@@ -2,9 +2,5 @@
   "name": "cog-wp",
   "version": "0.0.1",
   "description": "WordPress cog module",
-  "global": "false",
-  "scripts": [
-    "wp.sh",
-    "lib/*.sh"
-  ]
+  "global": "false"
 }
