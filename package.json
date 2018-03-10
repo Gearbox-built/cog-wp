@@ -1,13 +1,13 @@
 {
   "name": "cog-wp",
   "version": "0.0.1",
-  "description": "WordPress cog module",
+  "description": "Cog module for WordPress",
   "global": "false",
   "scripts": [
-    "wp.sh",
-    "lib/requirements.sh"
+    "wp.sh"
   ],
-  "files": [
+  "files": [,
+    "lib/requirements.sh",
     "sample.config"
   ]
 }
