@@ -3,11 +3,11 @@
 # WP Requirements Module
 # Author: Troy McGinnis
 # Company: Gearbox
-# Updated: August 4, 2017
+# Updated: March 10, 2018
 #
 
 wp::requirements() {
-  local requirements; requirements=(wp composer)
+  local requirements; requirements=(wp)
 
   for i in "${requirements[@]}"; do
     cog::check_requirement "${i}"
