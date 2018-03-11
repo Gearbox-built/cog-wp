@@ -3,7 +3,7 @@
 # Cog WordPress Module
 # Author: Troy McGinnis
 # Company: Gearbox
-# Updated: March 9, 2018
+# Updated: March 10, 2018
 #
 #
 # HISTORY:
@@ -23,7 +23,7 @@ cog::source_lib "${BASH_SOURCE[0]}"
 # WordPress Install
 # Downloads and installs a fresh WP instance
 #
-wp::wp_install() {
+wp::install() {
   for i in "$@"
   do
     case $i in
@@ -69,9 +69,9 @@ wp::wp_install() {
 # WordPress Setup
 # Downloads, installs, and setups up a fresh WP instance
 #
-wp::wp_setup() {
+wp::setup() {
   message "Setting up WP..."
-  # 1. wp::wp_install
+  # 1. wp::install
   # 2. wp db create
   # 3. wp core install
 }
@@ -140,16 +140,15 @@ wp::bootstrap() {
 # --------------------------------------------------
 
 wp::main() {
-  # TODO: Update .env PROD_USER, PROD_WP_HOME PROD_DB_NAME, PROD_DB_USER, PROD_DB_PASS
   wp::requirements
   local module; module=$( basename "$( dirname "${BASH_SOURCE[0]}")")
 
   case "$1" in
     install)
-      wp::wp_install "${@:2}"
+      wp::install "${@:2}"
       ;;
     setup)
-      wp::wp_setup "${@:2}"
+      wp::setup "${@:2}"
       ;;
     salt|salts)
       wp::update_salts "${@:2}"
@@ -164,7 +163,7 @@ wp::main() {
         "$lib" "${@:2}"
         cog::exit
       else
-        usage "cog wp" "install,setup,salts,bootstrap"
+        usage "cog wp" "install,setup,salts,bootstrap,theme"
         cog::exit
       fi
       ;;
