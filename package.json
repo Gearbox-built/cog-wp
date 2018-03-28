@@ -6,6 +6,8 @@
   "files": [
     "cog-wp.sh",
     "lib/requirements.sh",
+    "lib/plugins.sh",
+    "lib/theme.sh",
     "sample.config"
   ]
 }

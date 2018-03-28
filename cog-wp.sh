@@ -157,13 +157,13 @@ wp::main() {
       wp::bootstrap "${@:2}"
       ;;
     *)
-      local lib; lib="${module}::${1}::main"
+      local lib; lib="${module//cog-}::${1}::main"
 
       if [[ $(type -t "$lib") == 'function' ]]; then
         "$lib" "${@:2}"
         cog::exit
       else
-        usage "cog wp" "install,setup,salts,bootstrap,theme"
+        usage "cog wp" "install,setup,salts,bootstrap,theme,plugins"
         cog::exit
       fi
       ;;
