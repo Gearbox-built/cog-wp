@@ -163,7 +163,8 @@ wp::main() {
         "$lib" "${@:2}"
         cog::exit
       else
-        usage "cog wp" "install,setup,salts,bootstrap,theme,plugins"
+        libs
+        usage "cog wp" "install,setup,salts,theme,plugins,bootstrap"
         cog::exit
       fi
       ;;
