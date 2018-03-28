@@ -74,7 +74,7 @@ wp::default::main() {
       wp::default::options "${@:2}"
       ;;
     *)
-      usage "cog wp defaults" "install"
+      usage "cog wp default" "install"
       cog::exit
   esac
 }
