@@ -3,7 +3,7 @@
 # Cog WordPress Module
 # Author: Troy McGinnis
 # Company: Gearbox
-# Updated: March 10, 2018
+# Updated: March 27, 2018
 #
 #
 # HISTORY:
