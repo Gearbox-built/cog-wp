@@ -24,33 +24,7 @@ cog::source_lib "${BASH_SOURCE[0]}"
 # Downloads and installs a fresh WP instance
 #
 wp::install() {
-  for i in "$@"
-  do
-    case $i in
-      --name=*)
-        local name="${i#*=}"
-        ;;
-      --dir=*)
-        local dir="${i#*=}"
-        ;;
-      --db=*)
-        local db="${i#*=}"
-        ;;
-      --db-user=*)
-        local db_user="${i#*=}"
-        ;;
-      --db-pass=*)
-        local db_pass="${i#*=}"
-        ;;
-    esac
-  done
-
-  if [[ $# -lt 1 ]] || [[ -z "$name" ]]; then
-    local sub="install --local --name=<name>|--db=<db> [--db-user=<db-user>] [--db-pass=<db-pass>] [--db-host=<db-host>]"
-    sub="${sub},config --db=<db> --db-user=<db-user> --db-pass=<db-pass> [--db-host=<db-host>]"
-    usage "cog wp" "install, --name=<name>,[--dir=<dir>],[--db=<db>],[--db-user=<db-user>],[--db-pass=<db-pass>]" "arg"
-    cog::exit
-  fi
+  cog::params "$@" --optional="dir db db-user db-pass" --required="name"
 
   local dir; dir=${dir:-$( pwd )}
   local db; db=${db:-$name}
@@ -70,10 +44,15 @@ wp::install() {
 # Downloads, installs, and setups up a fresh WP instance
 #
 wp::setup() {
-  message "Setting up WP..."
-  # 1. wp::install
-  # 2. wp db create
-  # 3. wp core install
+  cog::params "$@" --optional="title dir db db-user db-pass admin-email admin-user" --required="name url"
+
+  local title; title="${title:-$name}"
+  local admin_email; admin_email="${admin_email:-$WP_ADMIN_EMAIL}"
+  local admin_user; admin_user="${admin_user:-$WP_ADMIN_USER}"
+
+  wp::install "$@"
+  wp db create
+  wp core install --url="$url" --title="$title" --admin_user="$admin_user" --admin_email="$admin_email"
 }
 
 # Update Salts
@@ -126,9 +105,37 @@ wp::check_wp_cli() {
   fi
 }
 
-wp::bootstrap() {
-  message "Gearboxify."
+# WP Silence
+# Creates new //Silence is golden index file
+#
+# @arg optional --dir Directory to create the index file (default: pwd)
+#
+wp::silence() {
+  cog::params "$@" --optional="dir"
+  local dir; dir=${dir:-$( pwd )}
+  local index; index="${dir}/index.php"
 
+  if [[ -f "$index" ]]; then
+    error "Index file already exists."
+    cog::exit
+  fi
+
+  message "Silence is golden..."
+
+  (
+  echo '<?php'
+  echo '// Silence is golden.'
+  ) > "$index"
+}
+
+wp::bootstrap() {
+  cog::params "$@" --optional="title dir db db-user db-pass" --required="name url"
+  local dir; dir=${dir:-$( pwd )}
+
+  header "Gearboxify."
+
+  wp::setup "$@"
+  wp::plugins::install --dir="${dir}/wp-content/plugins"
   # 1. Install theme
   # 2. Install defaults
   # 3. Install plugins
@@ -155,6 +162,9 @@ wp::main() {
       ;;
     bootstrap)
       wp::bootstrap "${@:2}"
+      ;;
+    silence)
+      wp::silence "${@:2}"
       ;;
     *)
       local lib; lib="${module//cog-}::${1}::main"

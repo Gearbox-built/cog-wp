@@ -3,15 +3,15 @@
 # WP Plugins Lib
 # Author: Troy McGinnis
 # Company: Gearbox
-# Updated: March 27, 2018
+# Updated: April 8, 2018
 #
 
 wp::plugins::download() {
   # [$dir]
-  cog::params --optional="dir"
-  local dir; dir=${dir:-$( pwd )}
+  cog::params "$@" --optional="dir"
+  local plugin_dir; plugin_dir=${dir:-$( pwd )}
 
-  cd "$dir" || exit
+  cd "$plugin_dir" || exit
 
   message "Downloading Premium Plugins"
 
@@ -25,9 +25,10 @@ wp::plugins::download() {
 
 wp::plugins::install() {
   # [$dir]
-  cog::params --optional="dir"
-  local dir; dir=${dir:-$( pwd )}
-  cd "$dir" || exit
+  cog::params "$@" --optional="dir"
+  local plugin_dir; plugin_dir=${dir:-$( pwd )}
+
+  cd "$plugin_dir" || exit
 
   message "Installing All Plugins"
 

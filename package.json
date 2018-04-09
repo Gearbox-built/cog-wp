@@ -8,6 +8,7 @@
     "lib/requirements.sh",
     "lib/plugins.sh",
     "lib/theme.sh",
+    "lib/default.sh",
     "sample.config"
   ]
 }
